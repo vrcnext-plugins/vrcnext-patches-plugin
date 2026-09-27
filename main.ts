@@ -30,6 +30,7 @@ export default definePlugin({
     ctx.ui.addSettingsCard({
       title: 'Sign-in',
       icon: 'key',
+      settings: true,
       render: (card) => {
         card.appendChild(ctx.ui.kit.description(
           'VRCNext clears its saved twoFactorAuth cookie whenever the session ends, so VRChat '

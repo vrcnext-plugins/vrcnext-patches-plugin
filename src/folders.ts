@@ -67,6 +67,8 @@ export class FolderCard {
     this.#ctx.ui.addSettingsCard({
       title: 'Media library folders',
       icon: 'folder_open',
+      // The plugin's settings are all about signing in; they belong on that card, not this one.
+      settings: false,
       render: (card) => {
         card.appendChild(this.#ctx.ui.kit.description(
           'VRCNext can reveal a single photo from its right-click menu, but never the folders '
