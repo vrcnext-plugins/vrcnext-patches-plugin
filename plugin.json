@@ -1,7 +1,7 @@
 {
   "id": "patches",
   "name": "VRCNext Patches",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "apiVersion": "^0.3.3",
   "description": "Small fixes for gaps in VRCNext: a button that opens the media library folders, and an unattended sign-in that answers the 2FA prompt VRCNext asks for on every re-login.",
   "author": "vrcnext-plugins",
@@ -17,7 +17,6 @@
   "actions": [
     "revealInExplorer",
     "scanLibrary",
-    "openShortcutFolder",
     "vrcLogin",
     "vrc2FA"
   ],
@@ -26,7 +25,7 @@
     "vrcPrefillLogin",
     "vrcNeeds2FA",
     "vrcLoginError",
-    "vrcLoggedOut"
+    "vrcUser"
   ],
   "hosts": []
 }
