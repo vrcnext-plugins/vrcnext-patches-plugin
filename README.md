@@ -44,3 +44,15 @@ GNOME Keyring), would keep the secret out of the page entirely — the plugin wo
 `host:actions` and `host:events`, each narrowed to an exact list in `plugin.json`:
 `revealInExplorer`, `scanLibrary`, `openShortcutFolder`, `vrcLogin`, `vrc2FA` and the events
 that answer them. No network access, no VRChat API access, no game log.
+
+## Signature
+
+Every release of this plugin is signed; the bridge refuses to install or update it otherwise,
+and it stays pinned to this key. Check the fingerprint against the one VRCNext shows you when it
+asks whether to trust a new signing key:
+
+```
+1bc6-e13e-c44c-3bd0-f5a8-5618-8b9b-919c
+```
+
+If an update ever says the key changed, stop and ask before confirming.
