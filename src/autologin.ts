@@ -46,6 +46,12 @@ export class AutoLogin {
   #armed = true;
   #attempts = 0;
   #busyUntil = 0;
+  /**
+   * Whether the last `vrcLogin` / `vrc2FA` was ours. A failure only counts against the limit
+   * when it answers one of our attempts: the user typing a wrong password by hand must not
+   * switch the patch off.
+   */
+  #ours = false;
 
   constructor(ctx: Ctx) {
     this.#ctx = ctx;
@@ -68,6 +74,7 @@ export class AutoLogin {
       if (this.#attempts > 0) this.#ctx.logger.info('Signed in; attempt counter reset.');
       this.#attempts = 0;
       this.#busyUntil = 0;
+      this.#ours = false;
     }));
     // The prefill for a session that was already dead at startup can land before this plugin
     // activates. The fields VRCNext filled are still sitting there, so read them instead.
@@ -95,6 +102,7 @@ export class AutoLogin {
     await sleep(SUBMIT_DELAY_MS, this.#ctx.signal);
     if (this.#ctx.signal.aborted) return;
     this.#ctx.logger.info(`Signing in as ${username}.`);
+    this.#ours = true;
     this.#ctx.bridge.send('vrcLogin', { username, password });
   }
 
@@ -116,6 +124,7 @@ export class AutoLogin {
       if (this.#ctx.signal.aborted) return;
       const code = await totp(secret);
       this.#ctx.logger.info('Answering the 2FA prompt.');
+      this.#ours = true;
       this.#ctx.bridge.send('vrc2FA', { code, type: 'totp' });
     } catch (error) {
       this.#ctx.logger.error(`Could not generate a code: ${String(error)}`);
@@ -125,7 +134,8 @@ export class AutoLogin {
   }
 
   #onError(error: string): void {
-    if (!this.#ctx.settings.get('autoLogin')) return;
+    if (!this.#ctx.settings.get('autoLogin') || !this.#ours) return;
+    this.#ours = false;
     this.#busyUntil = 0;
     this.#attempts += 1;
     this.#ctx.logger.warn(`Sign-in attempt ${String(this.#attempts)} failed: ${error}`);
