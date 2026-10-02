@@ -1,6 +1,6 @@
 {
   "name": "vrcnext-patches-plugin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "description": "VRCNext plugin: opens the media library folders, and signs in unattended when the session expires.",
   "license": "Unlicense",
