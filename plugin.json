@@ -1,8 +1,8 @@
 {
   "id": "patches",
   "name": "VRCNext Patches",
-  "version": "1.0.6",
-  "apiVersion": "^0.8.0",
+  "version": "1.0.7",
+  "apiVersion": "^0.9.0",
   "description": "Small fixes for gaps in VRCNext: a button that opens the media library folders, and an unattended sign-in that answers the 2FA prompt VRCNext asks for on every re-login.",
   "author": "vrcnext-plugins",
   "homepage": "https://github.com/vrcnext-plugins/vrcnext-patches-plugin",
