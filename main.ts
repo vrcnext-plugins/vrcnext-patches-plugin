@@ -8,11 +8,14 @@
  *   a time, from its right-click menu.
  * - **Unattended sign-in**: presses Login and answers the authenticator prompt when the session
  *   expires. See `src/autologin.ts` for why VRCNext asks every single time.
+ * - **Broken avatars keep their space**: one stylesheet, so a friend card whose picture failed
+ *   to load does not collapse and shove its neighbours around.
  */
 
 import { definePlugin, type PluginId } from '@vrcnext/plugin-api';
 
 import { AutoLogin } from './src/autologin.js';
+import { installAvatarFallback } from './src/avatar-fallback.js';
 import { FolderCard } from './src/folders.js';
 import { settings } from './src/settings.js';
 
@@ -22,6 +25,8 @@ export default definePlugin({
 
   activate(ctx) {
     new FolderCard(ctx).install();
+
+    if (ctx.settings.get('avatarFallback')) installAvatarFallback(ctx as never);
 
     const login = new AutoLogin(ctx);
     login.install();

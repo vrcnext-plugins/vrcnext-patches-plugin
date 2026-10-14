@@ -47,6 +47,14 @@ export const settings = {
     unit: ' tries',
     disabled: (values) => values['autoLogin'] !== true,
   },
+  avatarFallback: {
+    kind: 'boolean',
+    label: 'Keep broken avatars from collapsing their row',
+    description:
+      'VRCNext hides an avatar image it cannot load, which shrinks the card and leaves the '
+      + 'status dot and nameplate floating over its neighbours. This keeps the space.',
+    default: false,
+  },
 } as const satisfies SettingsSchema;
 
 export type Settings = typeof settings;
